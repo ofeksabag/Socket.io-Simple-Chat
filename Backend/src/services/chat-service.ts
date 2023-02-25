@@ -1,5 +1,6 @@
 import { Server as HttpServer } from "http";
 import { Server as SocketIoServer, Socket } from "socket.io";
+import messageModel from "../4-models/message-model";
 
 function initChat(httpServer: HttpServer): void {
 
@@ -15,9 +16,7 @@ function initChat(httpServer: HttpServer): void {
         console.log("One client has been connected...");
 
         // 3. Listen to client messages:
-        socket.on("msg-from-client", (msg: string) => {
-
-            console.log("Client sent message: " + msg);
+        socket.on("msg-from-client", (msg: messageModel) => {
 
             // 6. Send message to all clients:
             socketIoServer.sockets.emit("msg-from-server", msg);
